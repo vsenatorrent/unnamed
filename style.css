@@ -160,4 +160,8 @@ body {
   -ms-flex-preferred-size: 30%;
       flex-basis: 30%;
 }
+
+.login-form__submit {
+  margin-bottom: 10px;
+}
 /*# sourceMappingURL=style.css.map */

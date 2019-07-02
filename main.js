@@ -58,3 +58,37 @@ $('#months, #years').on("change", function () {
     // обновить количество дней в зависимости выбран год или нет
     isNaN(selectedYear) ? updateNumberOfDays(1970, ++selectedMonth) : updateNumberOfDays(selectedYear, ++selectedMonth)
 });
+
+function formSend(e) {
+
+    e.preventDefault();
+
+    // const inpVal = document.querySelector('#name').value;
+    const dataInputs = document.querySelectorAll('.reg-form__input');
+    const dataArray = [...dataInputs].map((input,index) => {
+        return `val${index}=${input.value}&`;
+    })
+    const dataString = dataArray.join('');
+    console.log(dataString);
+
+    const xhr = new XMLHttpRequest(),
+        url = "reg.php";
+
+    xhr.open('POST', url);
+
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+
+    xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+            };
+    };
+
+    // xhr.send('inp_name=' + inpVal);
+    xhr.send(dataString);
+
+}
+
+const form = document.querySelector('.reg-form');
+form.addEventListener('submit', formSend);
+
