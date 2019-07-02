@@ -1,23 +1,95 @@
+@import url('https://fonts.googleapis.com/css?family=Lato&display=swap')
+$lato: 'Lato', sans-serif
+$coral: #FF5A5F
+$blue: #3CA5AA
+
+    
 * 
     margin: 0
     padding: 0
     box-sizing: border-box
 
 body
-    background-color: #f2f2f2
+    background-color: lighten(#404040, 20%)
     position: relative
     height: 100vh
 
 .reg-form
-    border: 1px solid
+    background-color: #fff
     position: absolute
     top: 50%
     left: 50%
     transform: translate(-50%, -50%)
     display: flex
     flex-direction: column
+    padding: 35px 25px
+    font-family: $lato
     // width: 40%
     // height: 50%
     &__input
         padding: 10px 150px 10px 10px
-        margin-bottom: 10px
+        transition: box-shadow 0.2s
+        &:hover
+            box-shadow: 0 0 5px $blue
+        &::placeholder
+            font-family: $lato
+    &__icon
+        position: relative
+        margin-bottom: 15px
+        &::after
+            content: ''
+            display: inline-block
+            width: 20px
+            height: 20px
+            position: absolute
+            right: 10px
+            top: 50%
+            transform: translateY(-50%)
+    &__name
+        &::after
+            background: url(img/avatar.svg) top center no-repeat
+    &__email
+        &::after
+            background: url(img/email.svg) top center no-repeat
+    &__password
+        &::after
+            background: url(img/lock.svg) top center no-repeat
+    &__submit
+        padding: 14px
+        border: none
+        background-color: $coral
+        color: #ffffff
+        text-transform: capitalize
+        margin-bottom: 50px
+        font-family: $lato
+    &__login
+        display: flex
+        justify-content: space-between
+        align-items: center
+    &__question
+        color: $blue
+        font-weight: bold
+    &__link
+        color: $coral
+        text-decoration: none
+        border: 1px solid $coral
+        border-radius: 5px
+        padding: 7px 14px
+
+.birthday
+    display: flex
+    justify-content: space-between
+    margin-bottom: 20px
+    &__text
+        margin-bottom: 5px
+    &__select
+        padding: 5px
+        font-family: $lato
+        & > option
+            font-family: $lato
+        &--months
+            flex-basis: 40%
+        &--days
+            flex-basis: 20%
+        &--years
+            flex-basis: 30%

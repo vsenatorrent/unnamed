@@ -13,22 +13,36 @@
 
 <body>
     <form action="reg.php" class="reg-form">
-        <input type="text" placeholder="First name" class="reg-form__input">
-        <input type="text" placeholder="Last name" class="reg-form__input">
-        <input type="email" placeholder="Email address" class="reg-form__input">
-        <input type="password" placeholder="Password" class="reg-form__input">
+        <span class="reg-form__icon reg-form__name">
+            <input type="text" placeholder="First name" class="reg-form__input reg-form__firstname">
+        </span>
+        <span class="reg-form__icon reg-form__name">
+            <input type="text" placeholder="Last name" class="reg-form__input">
+        </span>
+        <span class="reg-form__icon reg-form__email">
+            <input type="email" placeholder="Email address" class="reg-form__input">
+        </span>
+        <span class="reg-form__icon reg-form__password">
+            <input type="password" placeholder="Password" class="reg-form__input">
+        </span>
+        <b class="birthday__text">Birthday</b>
         <div class="birthday">
-            <select id="months" class="birthday__select">
+
+            <select id="months" class="birthday__select birthday__select--months">
                 <option hidden default>Month</option>
             </select>
-            <select id="days" class="birthday__select">
+            <select id="days" class="birthday__select birthday__select--days">
                 <option hidden default>Day</option>
             </select>
-            <select id="years" class="birthday__select">
-                <option hidden default>Years</option>
+            <select id="years" class="birthday__select birthday__select--years">
+                <option hidden default>Year</option>
             </select>
         </div>
-        <input type="submit" value="sign up">
+        <input type="submit" value="sign up" class="reg-form__submit">
+        <div class="reg-form__login">
+            <span class="reg-form__question">Already have an account?</span>
+            <a href="#" class="reg-form__link">Log in</a>
+        </div>
     </form>
 
     <script src="main.js"></script>
