@@ -1,5 +1,3 @@
-const monthAbbs = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-
 // заполнить селекты днями, годами, месяцами
 const fillSelects = () => {
     // заполнить #months
@@ -8,7 +6,7 @@ const fillSelects = () => {
     
 
     monthNames.forEach((month, index) => {
-        $('#months').append($('<option />').val(monthAbbs[index]).html(month));
+        $('#months').append($('<option />').val(++index).html(month));
     })
 
     // заполнить #days
@@ -53,42 +51,90 @@ const updateNumberOfDays = (year, month) => {
 
 // обрабатывать изменение месяца или года
 $('#months, #years').on("change", function () {
-    let selectedMonth = monthAbbs.indexOf($('#months').val());
+    let selectedMonth = $('#months').val();
     const selectedYear = $('#years').val();
     // обновить количество дней в зависимости выбран год или нет
-    isNaN(selectedYear) ? updateNumberOfDays(1970, ++selectedMonth) : updateNumberOfDays(selectedYear, ++selectedMonth)
+    isNaN(selectedYear) ? updateNumberOfDays(1970, selectedMonth) : updateNumberOfDays(selectedYear, selectedMonth)
 });
 
-function formSend(e) {
+const getDataInputs = (classname, bday) => {
+    const dataInputs = document.querySelectorAll(classname);
+
+    const dataObject = [...dataInputs].reduce((acc, next) => {
+
+        const field = next.dataset.value;
+        acc[field] = next.value;
+        return acc;
+
+    }, {});
+
+    if (bday) {
+        const bdayInputs = document.querySelectorAll(bday);
+
+        const bdayArr = [...bdayInputs].map(bdayNode => {
+            return bdayNode.value < 10 ? '0' + bdayNode.value : bdayNode.value;
+        });
+
+        // если хотя бы одно поле даты рождения не установлено, не возвращать её
+        if (bdayArr.some(item=>item.length === 1)){
+            return dataObject;
+        }
+
+        // преобразовать дату из формата MM-DD-YYYY в YYYY-MM-DD
+
+        [bdayArr[0], bdayArr[1], bdayArr[2]] = [bdayArr[2], bdayArr[0], bdayArr[1]];
+
+
+        dataObject['bday'] = bdayArr.join('-');
+
+        console.log(dataObject);
+
+        return dataObject;
+
+    };
+};
+
+// функция обработки события submit формы регистрации
+const regFormSend = (e) => {
 
     e.preventDefault();
 
-    // const inpVal = document.querySelector('#name').value;
-    const dataInputs = document.querySelectorAll('.reg-form__input');
-    const dataArray = [...dataInputs].map((input,index) => {
-        return `val${index}=${input.value}&`;
+    // получить значения инпутов
+
+    const dataObject = getDataInputs('.reg-form__input', '.birthday__select');
+
+    $.ajax({
+        method: "POST",
+        url: "reg.php",
+        data: dataObject
     })
-    const dataString = dataArray.join('');
-    console.log(dataString);
-
-    const xhr = new XMLHttpRequest(),
-        url = "reg.php";
-
-    xhr.open('POST', url);
-
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-
-    xhr.onreadystatechange = function () {
-            if(xhr.readyState === 4 && xhr.status === 200) {
-                console.log(xhr.responseText);
-            };
-    };
-
-    // xhr.send('inp_name=' + inpVal);
-    xhr.send(dataString);
+    .done(function (msg) {
+        console.log(msg);
+    });
 
 }
 
-const form = document.querySelector('.reg-form');
-form.addEventListener('submit', formSend);
+const regForm = document.querySelector('.reg-form--index');
+if(regForm) regForm.addEventListener('submit', regFormSend);
 
+// функция обработки submit формы логина
+const loginFormSend = (e) => {
+    
+    e.preventDefault();
+
+    const dataObject = getDataInputs('.login-form__input');
+
+    console.log(dataObject);
+
+    $.ajax({
+        method: "POST",
+        url: "login.php",
+        data: dataObject
+    })
+    .done(function (msg) {
+        console.log(msg);
+    });
+};
+
+const loginForm = document.querySelector('.login-form');
+if(loginForm) loginForm.addEventListener('submit', loginFormSend);

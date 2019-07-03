@@ -2,9 +2,9 @@
 
 $driver = 'mysql';
 $host = 'localhost';
-$db_name = 's';
-$db_user = 'admin';
-$db_pass = '123';
+$db_name = 'test';
+$db_user = 'root';
+$db_pass = '';
 $charset = 'utf8';
 $options = [PDO::ATTR_ERRMODE => PDO:: ERRMODE_EXCEPTION];
 
@@ -13,13 +13,6 @@ try{
 }catch(PDOException $e){
 	die('не могу подключится к базе данных');
 }
-
-// $result = $pdo->query('SELECT * FROM films');
-
-// while( $row = $result->fetch(PDO::FETCH_ASSOC) ) {
-// 	echo 'Фильм ' . $row['name'] . ' жанр ' . $row['genre'] . ' длится ' . $row['duration'] . '<br>';
-// }
-
 
 
 

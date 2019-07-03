@@ -2,6 +2,7 @@
 $lato: 'Lato', sans-serif
 $coral: #FF5A5F
 $blue: #3CA5AA
+$border: #d1d5da
 
     
 * 
@@ -16,19 +17,17 @@ body
 
 .reg-form
     background-color: #fff
-    position: absolute
-    top: 50%
-    left: 50%
-    transform: translate(-50%, -50%)
     display: flex
     flex-direction: column
-    padding: 35px 25px
+    padding: 35px 25px 10px
     font-family: $lato
-    // width: 40%
-    // height: 50%
+    border-radius: 4px
+    margin-bottom: 20px
     &__input
         padding: 10px 150px 10px 10px
         transition: box-shadow 0.2s
+        border: 1px solid $border
+        border-radius: 3px
         &:hover
             box-shadow: 0 0 5px $blue
         &::placeholder
@@ -60,8 +59,10 @@ body
         background-color: $coral
         color: #ffffff
         text-transform: capitalize
-        margin-bottom: 50px
+        margin-bottom: 10px
         font-family: $lato
+        border: 1px solid #d1d5da
+        border-radius: 5px
     &__login
         display: flex
         justify-content: space-between
@@ -93,9 +94,24 @@ body
             flex-basis: 20%
         &--years
             flex-basis: 30%
+        
+.wrapper
+    position: absolute
+    top: 50%
+    left: 50%
+    transform: translate(-50%, -50%)
 
-.login-form
-    &__submit
-        margin-bottom: 10px
-    // &__password
-    //     margin-bottom: 20px            
+.register
+    display: flex
+    justify-content: center
+    padding: 10px 25px
+    background-color: #fff
+    font-family: $lato
+    font-size: 14px
+    border-radius: 4px
+    &__text
+        margin-right: 15px
+        color: $blue
+    &__link
+        text-decoration: none
+        color: $coral

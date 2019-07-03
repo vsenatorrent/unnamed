@@ -1,50 +1,47 @@
 <?php
 
-// $data = $_POST['inp_name'];
-
-// echo $data;
-
-// if(strlen($data)) {
-// 	echo 'success';
-// } else {
-// 	echo 'error';
-// }
-
 require_once 'db.php';
 
-$firstname = $_POST['val0'];
-$lastname = $_POST['val1'];
-$email = $_POST['val2'];
-$password = $_POST['val3'];
-
-// $login = $_POST['login'];
-// $pwd = $_POST['pwd'];
+$firstname = $_POST['firstname'];
+$lastname = $_POST['lastname'];
+$email = $_POST['email'];
+$password = $_POST['password'];
+$bday = $_POST['bday'];
 
 if(!empty($firstname) && !empty($lastname) && !empty($email) && !empty($password)){
-    // echo 'success';
-    $sql = 'INSERT INTO productusers(firstname, lastname, email, password) VALUES(:firstname, :lastname, :email, :password)';
-    $params = [ ':firstname' => $firstname, ':lastname' => $lastname, ':email' => $email, ':password' => $password ];
+
+    $sql = 'SELECT * from users WHERE users.email = :email';
+    
+    $params = [ ':email' => $email ];
 
     $stmt = $pdo->prepare($sql);
     $stmt->execute($params);
 
-    echo 'вы успешно зарегестрировались';
+    $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $arrLen = sizeof($user);
+    if($arrLen > 0) {
+        echo 'пользователь с таким email уже зарегестрирован';
+    } else {
+         $sql = 'INSERT INTO users(firstname, lastname, email, password) VALUES(:firstname, :lastname, :email, :password)';
 
+        $params = [ ':firstname' => $firstname, ':lastname' => $lastname, ':email' => $email, ':password' => $password ];
+
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute($params);
+
+        if($bday != '0-0-0') {
+            $sql = 'UPDATE users SET bday = :bday WHERE users.email = :email';
+            $params = [ ':bday' => $bday, ':email' => $email ];
+
+            $stmt = $pdo->prepare($sql);
+            $stmt->execute($params);
+        }
+
+        echo 'вы успешно зарегестрировались';
+    }
 } else {
-    echo 'заполните все поля';
+    echo 'заполните все необходимые поля ';
 };
 
-// if(!empty($login) && !empty($pwd)){
-// 	$sql = 'INSERT INTO users(login, password) VALUES(:login,:pwd)';
-// 	$params = [ 'login' => $login; ':pwd' => $pwd ];
-
-// 	$stmt = $pdo->prepare($sql);
-// 	$stmt->execute($params);
-
-// 	echo 'вы успешно зарегестрировались';
-
-// } else {
-// 	echo 'заполните все поля';
-// };
 
 ?>
