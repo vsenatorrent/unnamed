@@ -193,4 +193,15 @@ body {
   text-decoration: none;
   color: #FF5A5F;
 }
+
+.exit-button {
+  font-size: 24px;
+  color: #fff;
+  padding: 10px;
+}
+
+.greeting {
+  color: #fff;
+  padding: 10px;
+}
 /*# sourceMappingURL=style.css.map */

@@ -92,6 +92,7 @@ const getDataInputs = (classname, bday) => {
         return dataObject;
 
     };
+    return dataObject;
 };
 
 // функция обработки события submit формы регистрации
@@ -133,8 +134,13 @@ const loginFormSend = (e) => {
     })
     .done(function (msg) {
         console.log(msg);
+        document.location = 'profile.php';
     });
 };
 
 const loginForm = document.querySelector('.login-form');
 if(loginForm) loginForm.addEventListener('submit', loginFormSend);
+
+// const exitButton = document.querySelector('.exit-button');
+// if(exitButton) exitButton.addEventListener('click', (e) => {
+// });

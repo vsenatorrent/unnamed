@@ -36,8 +36,10 @@ if(!empty($firstname) && !empty($lastname) && !empty($email) && !empty($password
             $stmt = $pdo->prepare($sql);
             $stmt->execute($params);
         }
-
+        setcookie('email', $email);
+        setcookie('password', $password);
         echo 'вы успешно зарегестрировались';
+        header('loction: profile.php');
     }
 } else {
     echo 'заполните все необходимые поля ';
