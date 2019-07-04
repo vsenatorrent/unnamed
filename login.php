@@ -16,12 +16,11 @@ if(!empty($email) && !empty($password)){
     $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
     $arrLen = sizeof($user);
     if($arrLen > 0) {
-        // echo 'успешно';
         setcookie('email', $email);
         setcookie('password', $password);
-        header('location: profile.php');
+        echo 'ok';
     } else {
-        echo 'неверный логин или пароль';
+        echo 'error';
     }
 } else {
     echo 'заполните все поля';

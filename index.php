@@ -10,26 +10,36 @@
     <script src="jquery.min.js"></script>
 </head>
 <?php
-if(isset($_COOKIE['email']) && isset($_COOKIE['password'])){
-    header('location: profile.php');
-    //
-};
+    if(isset($_COOKIE['email']) && isset($_COOKIE['password'])){
+        header('location: profile.php');
+    };
 ?>
 <body>
+
+<div class="container">
     <div class="wrapper">
-        <form class="reg-form reg-form--index">
-            <span class="reg-form__icon reg-form__name">
-                <input type="text" placeholder="First name *" class="reg-form__input reg-form__firstname" required data-value="firstname">
+        <div class="error">
+            <span class="error__text">
+                Email is invalid or already taken.
             </span>
-            <span class="reg-form__icon reg-form__name">
-                <input type="text" placeholder="Last name *" class="reg-form__input" required data-value="lastname">
+            <span class="error__close">	&times;</span>            
+        </div>
+        <form class="form reg-form">
+            <span class="form__icon form__name">
+                <input type="text" placeholder="First name *" class="form__input form__firstname" required >
             </span>
-            <span class="reg-form__icon reg-form__email">
-                <input type="email" placeholder="Email address *" class="reg-form__input" required data-value="email">
+            <span class="form__icon form__name">
+                <input type="text" placeholder="Last name *" class="form__input" required >
             </span>
-            <span class="reg-form__icon reg-form__password">
-                <input type="password" placeholder="Password *" class="reg-form__input" required data-value="password">
+            <span class="form__icon form__email">
+                <input type="email" placeholder="Email address *" class="form__input" required >
             </span>
+            <div class="password">
+                <button class="password__show">show password</button>
+                <span class="form__icon form__password">
+                    <input type="password" placeholder="Password *" class="form__input password__input" required >
+                </span>
+            </div>
             <b class="birthday__text">Birthday</b>
             <div class="birthday">
 
@@ -43,21 +53,31 @@ if(isset($_COOKIE['email']) && isset($_COOKIE['password'])){
                     <option hidden default value="">Year</option>
                 </select>
             </div>
-            <input type="submit" value="sign up" class="reg-form__submit">
+            <input type="submit" value="sign up" class="form__submit">
             
         </form>
-        <!-- <div class="reg-form__login">
-            <span class="reg-form__question">Already have an account?</span>
-            <a href="login.html" class="reg-form__link">Log in</a>
-        </div> -->
-
-        <div class="register">
-            <b class="register__text">
+        <div class="sign-question">
+            <b class="sign-question__text">
                 Already have an account?
             </b>
-            <a href="login-page.php" class="register__link">Log in</a>
+            <a href="login-page.php" class="sign-question__link">Log in</a>
         </div>
     </div>
+    <!-- bg animation start -->
+    <ul class="circles">
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+    <!-- bg animation end -->
+</div>
     <script src="main.js"></script>
 </body>
 

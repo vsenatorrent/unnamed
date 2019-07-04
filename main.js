@@ -75,8 +75,9 @@ const getDataInputs = (classname, bday) => {
             return bdayNode.value < 10 ? '0' + bdayNode.value : bdayNode.value;
         });
 
-        // если хотя бы одно поле даты рождения не установлено, не возвращать её
+        // если хотя бы одно поле даты рождения не установлено, установить дату '1970-01-01'
         if (bdayArr.some(item=>item.length === 1)){
+            dataObject['bday'] = '1970-01-01';
             return dataObject;
         }
 
@@ -92,6 +93,7 @@ const getDataInputs = (classname, bday) => {
         return dataObject;
 
     };
+    
     return dataObject;
 };
 
@@ -102,7 +104,7 @@ const regFormSend = (e) => {
 
     // получить значения инпутов
 
-    const dataObject = getDataInputs('.reg-form__input', '.birthday__select');
+    const dataObject = getDataInputs('.form__input', '.birthday__select');
 
     $.ajax({
         method: "POST",
@@ -110,12 +112,15 @@ const regFormSend = (e) => {
         data: dataObject
     })
     .done(function (msg) {
-        console.log(msg);
+        if(msg === 'error')
+            $('.error').css('display', 'flex');
+        if(msg === 'success')
+            document.location = 'profile.php';
     });
 
 }
 
-const regForm = document.querySelector('.reg-form--index');
+const regForm = document.querySelector('.reg-form');
 if(regForm) regForm.addEventListener('submit', regFormSend);
 
 // функция обработки submit формы логина
@@ -134,13 +139,25 @@ const loginFormSend = (e) => {
     })
     .done(function (msg) {
         console.log(msg);
-        document.location = 'profile.php';
+        if(msg === 'ok')
+            document.location = 'profile.php';
+        else
+            $('.error').css('display', 'flex');
     });
 };
 
 const loginForm = document.querySelector('.login-form');
 if(loginForm) loginForm.addEventListener('submit', loginFormSend);
 
-// const exitButton = document.querySelector('.exit-button');
-// if(exitButton) exitButton.addEventListener('click', (e) => {
-// });
+$('.error__close').on('click', function(){
+    $(this).parent().hide();
+})
+
+
+// показать пароль при регистрации
+
+$('.password__show').on('click', function(e){
+    e.preventDefault();
+    const passwordInput = $('.password__input');
+    passwordInput.attr('type') === 'password' ? passwordInput.attr('type', 'text') : passwordInput.attr('type', 'password')
+});
