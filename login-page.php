@@ -21,10 +21,10 @@
         </div>
         <form class="form login-form">
             <span class="form__icon form__email">
-                <input type="email" placeholder="Email address" class="form__input login-form__input" value="<?php if(isset($_COOKIE['email'])){echo $_COOKIE['email'];}; ?>">
+                <input type="email" placeholder="Email address" class="form__input login-form__input" value="<?php if(isset($_COOKIE['email'])){echo $_COOKIE['email'];}; ?>" data-value="email">
             </span>
             <span class="form__icon form__password">
-                <input type="password" placeholder="Password" class="form__input login-form__input" value="<?php if(isset($_COOKIE['password'])){echo $_COOKIE['password'];}; ?>">
+                <input type="password" placeholder="Password" class="form__input login-form__input" value="<?php if(isset($_COOKIE['password'])){echo $_COOKIE['password'];}; ?>" data-value="password">
             </span>
             <input type="submit" value="Sign In" class="form__submit login-form__submit">
         </form>

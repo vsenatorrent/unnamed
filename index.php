@@ -26,18 +26,18 @@
         </div>
         <form class="form reg-form">
             <span class="form__icon form__name">
-                <input type="text" placeholder="First name *" class="form__input form__firstname" required >
+                <input type="text" placeholder="First name *" class="form__input form__firstname" data-value="firstname" required>
             </span>
             <span class="form__icon form__name">
-                <input type="text" placeholder="Last name *" class="form__input" required >
+                <input type="text" placeholder="Last name *" class="form__input" data-value="lastname" required>
             </span>
             <span class="form__icon form__email">
-                <input type="email" placeholder="Email address *" class="form__input" required >
+                <input type="email" placeholder="Email address *" class="form__input" data-value="email" required>
             </span>
             <div class="password">
                 <button class="password__show">show password</button>
                 <span class="form__icon form__password">
-                    <input type="password" placeholder="Password *" class="form__input password__input" required >
+                    <input type="password" placeholder="Password *" class="form__input password__input" data-value="password" required>
                 </span>
             </div>
             <b class="birthday__text">Birthday</b>

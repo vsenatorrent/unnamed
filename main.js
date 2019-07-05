@@ -5,9 +5,12 @@ const fillSelects = () => {
     "July", "August", "September", "October", "November", "December"];
     
 
-    monthNames.forEach((month, index) => {
+    // monthNames.forEach((month, index) => {
+    //     $('#months').append($('<option />').val(++index).html(month));
+    // })
+    $.each(monthNames, (index, month) => {
         $('#months').append($('<option />').val(++index).html(month));
-    })
+    });
 
     // заполнить #days
 
@@ -69,11 +72,15 @@ const getDataInputs = (classname, bday) => {
     }, {});
 
     if (bday) {
-        const bdayInputs = document.querySelectorAll(bday);
+        // const bdayInputsV = document.querySelectorAll(bday);
 
-        const bdayArr = [...bdayInputs].map(bdayNode => {
-            return bdayNode.value < 10 ? '0' + bdayNode.value : bdayNode.value;
-        });
+        // const bdayArrV = [...bdayInputsV].map(bdayNode => {
+        //     return bdayNode.value < 10 ? '0' + bdayNode.value : bdayNode.value;
+        // });
+
+        const bdayArr = $(bday).map(function(bdayNode) {
+            return $(this).val() < 10 ? '0' + $(this).val() : $(this).val();
+        }).get();
 
         // если хотя бы одно поле даты рождения не установлено, установить дату '1970-01-01'
         if (bdayArr.some(item=>item.length === 1)){
@@ -116,12 +123,16 @@ const regFormSend = (e) => {
             $('.error').css('display', 'flex');
         if(msg === 'success')
             document.location = 'profile.php';
+        // console.log(msg);
     });
 
 }
 
-const regForm = document.querySelector('.reg-form');
-if(regForm) regForm.addEventListener('submit', regFormSend);
+// const regForm = document.querySelector('.reg-form');
+// if(regForm) regForm.addEventListener('submit', regFormSend);
+
+const regForm = $('.reg-form');
+regForm && regForm.on('submit', regFormSend);
 
 // функция обработки submit формы логина
 const loginFormSend = (e) => {
@@ -141,13 +152,17 @@ const loginFormSend = (e) => {
         console.log(msg);
         if(msg === 'ok')
             document.location = 'profile.php';
-        else
+        // else
+        if(msg === 'error')
             $('.error').css('display', 'flex');
     });
 };
 
-const loginForm = document.querySelector('.login-form');
-if(loginForm) loginForm.addEventListener('submit', loginFormSend);
+// const loginForm = document.querySelector('.login-form');
+// if(loginForm) loginForm.addEventListener('submit', loginFormSend);
+
+const loginForm = $('.login-form');
+loginForm && loginForm.on('submit', loginFormSend);
 
 $('.error__close').on('click', function(){
     $(this).parent().hide();
